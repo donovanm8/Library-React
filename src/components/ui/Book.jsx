@@ -6,24 +6,15 @@ import { useEffect, useRef, useState } from "react";
 export default function Book({ book }) {
   const [img, setImg] = useState();
 
-  const mountedRef = useRef(false);
-
   useEffect(() => {
     const image = new Image();
     image.src = book.url;
     image.onload = () => {
       setTimeout(() => {
-        if (mountedRef.current) {
-          setImg(image);
-        }
+        setImg(image);
       }, Math.random() * 1000);
     };
-
-    return () => {
-      mountedRef.current = true;
-    };
-
-  },[]);
+  });
 
   return (
     <div className="book">
@@ -31,11 +22,7 @@ export default function Book({ book }) {
         <>
           <Link to={`/books/${book.id}`}>
             <figure className="book__img--wrapper">
-              <img
-                src={img.src}
-                alt=""
-                className="book__img"
-              />
+              <img src={img.src} alt="" className="book__img" />
             </figure>
           </Link>
           <div className="book__title">
